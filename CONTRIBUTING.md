@@ -8,10 +8,10 @@
 4. 新功能必须包含测试；行为变化必须更新文档。
 5. 提交前运行 `pytest` 和 `ruff check .`。
 
-## 提交实验室项目
+## 提交开源分享
 
-1. 团队项目放入 `projects/teams/<项目英文简称>/`。
-2. 个人项目放入 `projects/individuals/<姓名拼音>-<项目英文简称>/`。
+1. 实验室日常项目分享放入 `projects/shared/<项目英文简称>/`。
+2. 个人项目分享放入 `projects/personal/<姓名拼音>-<项目英文简称>/`。
 3. 从 `projects/_template/README.md` 复制项目说明模板并完整填写。
 4. 在 `projects/PROJECTS.md` 增加一行项目接龙信息。
 5. 一个 Pull Request 只提交一个项目，由组长或仓库维护者评审。
@@ -25,8 +25,8 @@
 - `docs/...`：文档
 - `test/...`：测试
 - `refactor/...`：重构
-- `project/team-...`：团队项目
-- `project/personal-...`：个人项目
+- `share/...`：实验室项目分享
+- `personal/...`：个人项目分享
 
 ## 提交信息
 

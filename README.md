@@ -5,8 +5,8 @@
 ## 实验室项目
 
 - [项目总览与成员接龙](projects/PROJECTS.md)
-- [团队项目](projects/teams/)
-- [个人项目](projects/individuals/)
+- [实验室项目分享](projects/shared/)
+- [个人项目分享](projects/personal/)
 - [项目提交规范](projects/README.md)
 - [新项目 README 模板](projects/_template/README.md)
 
@@ -53,7 +53,7 @@ sc-lab/
 ├─ tests/               自动测试
 ├─ examples/            可直接运行的示例
 ├─ data/                小规模公开示例数据
-├─ projects/            团队项目、个人项目与项目名录
+├─ projects/            实验室日常开源分享与项目名录
 ├─ docs/                教程、路线图和新人任务
 └─ .gitee/              Issue 与 Pull Request 模板
 ```
@@ -62,7 +62,7 @@ sc-lab/
 
 1. 阅读 [贡献指南](CONTRIBUTING.md) 和 [新人任务](docs/starter-tasks.md)。
 2. 在 Gitee Issue 中认领任务或登记准备提交的项目，不重复开发。
-3. 创建独立分支，例如 `feat/bfs-search`、`project/team-项目简称`。
+3. 创建独立分支，例如 `feat/bfs-search`、`share/项目简称`。
 4. 完成代码、测试和文档后提交 Pull Request。
 5. 根据评审意见修改，由维护者合并。
 
