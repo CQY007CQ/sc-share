@@ -13,7 +13,7 @@
 ## 快速开始
 
 ```bash
-git clone https://gitee.com/life-is-a-wilderness/sc-lab.git
+git clone https://gitee.com/life-is-a-wilderness/sc-share.git
 cd sc-lab
 python -m venv .venv
 .venv\Scripts\activate
