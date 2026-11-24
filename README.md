@@ -1,6 +1,16 @@
-# SC Lab 人工智能基础实践平台
+# SC Share 实验室开源项目平台
 
-面向实验室大一、大二同学的开源实践仓库。项目从可运行的小实验出发，帮助参与者学习 Python、搜索算法、知识图谱、测试、Git 协作和代码评审。
+面向实验室成员的公共开源仓库。仓库既维护可共同迭代的人工智能基础模块，也集中收录各小组和个人项目，帮助成员学习 Python、算法实践、项目复现、Git 协作和代码评审。
+
+## 实验室项目
+
+- [项目总览与成员接龙](projects/PROJECTS.md)
+- [团队项目](projects/teams/)
+- [个人项目](projects/individuals/)
+- [项目提交规范](projects/README.md)
+- [新项目 README 模板](projects/_template/README.md)
+
+所有项目必须使用独立目录，通过 Pull Request 提交。请勿直接向 `master` 推送或把文件散放在仓库根目录。
 
 ## 已有模块
 
@@ -43,6 +53,7 @@ sc-lab/
 ├─ tests/               自动测试
 ├─ examples/            可直接运行的示例
 ├─ data/                小规模公开示例数据
+├─ projects/            团队项目、个人项目与项目名录
 ├─ docs/                教程、路线图和新人任务
 └─ .gitee/              Issue 与 Pull Request 模板
 ```
@@ -50,8 +61,8 @@ sc-lab/
 ## 参与方式
 
 1. 阅读 [贡献指南](CONTRIBUTING.md) 和 [新人任务](docs/starter-tasks.md)。
-2. 在 Gitee Issue 中认领任务，不重复开发。
-3. 从 `develop` 创建分支，例如 `feat/bfs-search`。
+2. 在 Gitee Issue 中认领任务或登记准备提交的项目，不重复开发。
+3. 创建独立分支，例如 `feat/bfs-search`、`project/team-项目简称`。
 4. 完成代码、测试和文档后提交 Pull Request。
 5. 根据评审意见修改，由维护者合并。
 
