@@ -1,0 +1,9 @@
+head,tail,relation,label
+贾代善,贾源,son,子
+贾母,贾代善,wife,妻
+贾敏,贾代善,daughter,女
+薛宝钗,贾宝玉,wife,妻
+花袭人,贾宝玉,concubine,妾
+雪雁,林黛玉,servant_girl,丫鬟
+王嬷嬷,林黛玉,nurser,乳母
+
