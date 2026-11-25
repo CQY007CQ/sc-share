@@ -1,21 +1,12 @@
 /**
- * 分日排程：带权游标最近邻。
+ * 分日排程：带权游标最近邻。移植自项目内 planner.js 的 nearest()。
  *
- * 出处：小程序 planner.js 的 `nearest()`（生成每日行程时逐格取点）。
- * 它要解决的问题比「排序」更棘手：
- *   用户要的不是一条最短路径，而是「每天都不折腾」+「远郊景点别混在市区日里」。
- *   纯最近邻会算出「上午故宫、下午长城、晚上南锣鼓巷」—— 总里程好看，人累死。
- *
- * 三层改造（全部在打分里，不额外写分支判断）：
- *   1. 市区优先：距城心 ≤ 25 km 视为市区。市区点与远郊点分两个候选池各取最优，
- *      只有「游标已经在远郊」或「市区候选快用完（≤1）而远郊还有 ≥2 个」时，
- *      才允许当天从远郊起手 —— 于是长城、十三陵这种自然聚成同一天的「一日游」。
- *   2. 偏好加成：出行模式 / 攻略风格 / 体力画像 / 想玩清单都折算成公里数加减，
- *      参与同一个比较。好处是「权重」和「距离」量纲一致，不用调参调出一堆阈值。
- *      想玩清单 −400 是刻意给的大权重：用户主动收藏的景点，绕 400 km 也该排进去。
- *   3. 游标（cursor）每天重置回住宿地：真实行程每天从酒店出门，不是接着昨天最后一站。
- *
- * 权重常量见下方 WEIGHTS，全部可被调用方覆盖 —— 线上是画像驱动，这里给默认值。
+ * 按最近邻直接排会把远郊景点混进市区日。这里把距离、时段、体力、想玩清单
+ * 都折算成公里数，放在同一次比较里：
+ *   1. 距城心 ≤ 25 km 算市区。市区和远郊各取候选，只有游标已在远郊、
+ *      或市区快排完时才从远郊起手，长城和十三陵会自然排到同一天。
+ *   2. 想玩清单减 400 km，体力画像给费力景点加 260 km。
+ *   3. 游标每天重置到住宿地。
  */
 
 const { haversine } = require("./geo.js");
@@ -51,9 +42,7 @@ function planDays(opts) {
   const biasEff = typeof opts.biasEff === "function" ? opts.biasEff : () => 0;
 
   const isFar = (s) => (anchor ? haversine(s, anchor) > WEIGHTS.urbanRadiusKm : false);
-  // 一个景点可能有多个可接受时段（故宫上午/下午都行）。线上数据里 period 是单值，
-  // 但取点函数的入参本来就是「想要的时段数组」，这里把「景点也可多选」补齐，
-  // 否则「只在上午开放」的点一旦超过天数就会被成批丢弃 —— 那是排程器的锅，不是用户的锅。
+  // 项目内数据是单个 period，这里允许景点带多个可接受时段，避免时段受限的景点被丢弃。
   const periodsOf = (s) => (Array.isArray(s.periods) && s.periods.length ? s.periods : [s.period]);
   const fits = (s, wanted) => periodsOf(s).some((p) => wanted.includes(p));
   let urbanLeft = spots.filter((s) => !isFar(s)).length;
@@ -96,8 +85,7 @@ function planDays(opts) {
     let cursor = hotel ? { lat: hotel.lat, lon: hotel.lon } : null;
     const items = [];
     for (const p of periods) {
-      // 先按当前时段取；取不到再放开到「全天」景点兜底。
-      // 线上原实现如此：否则故宫闭馆日/淡季这类「该时段无候选」会直接留空格。
+      // 当前时段没有候选时，用「全天」景点填空。
       const s = takeOne([p], cursor) || takeOne(["全天"], cursor);
       if (!s) continue;
       const from = cursor;
